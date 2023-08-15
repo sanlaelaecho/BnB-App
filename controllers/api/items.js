@@ -1,3 +1,4 @@
+const { configDotenv } = require('dotenv');
 const Item = require('../../models/item');
 
 module.exports = {
@@ -24,3 +25,27 @@ async function show(req, res) {
     res.status(400).json({ msg: e.message });
   }  
 }
+
+async function getFlights() {
+  const response = await fetch(`https://api.flightapi.io/roundtrip/${process.env.API_KEY}/departure_airport_code/arrival_airport_code/departure_date/number_of_adults/number_of_childrens/number_of_infants/cabin_class/USD`)
+}
+
+/*
+https://api.flightapi.io/onewaytrip/api_key/departure_airport_code/arrival_airport_code/departure_date/number_of_adults/number_of_childrens/number_of_infants/cabin_class/currency"
+// require the Unirest or any other module to make an HTTP GET request
+const unirest = require('unirest')
+
+unirest.get('https://api.flightapi.io/onewaytrip/api_key/departure_airport_code/arrival_airport_code/departure_date/number_of_adults/number_of_childrens/number_of_infants/cabin_class/currency')
+  .then(response => {
+    console.log(response.body);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+
+// Set your API key before making the request
+import requests
+
+resp = requests.get('https://api.flightapi.io/onewaytrip/api_key/departure_airport_code/arrival_airport_code/departure_date/number_of_adults/number_of_childrens/number_of_infants/cabin_class/currency')
+print (resp.json()) */
