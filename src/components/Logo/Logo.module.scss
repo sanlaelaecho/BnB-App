@@ -1,13 +1,19 @@
 .Logo {
-    height: 12vmin;
-    width: 12vmin;
+    height: 3vmax;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 100;
     align-items: center;
-    border-radius: 50%;
-    background-color: var(--orange);
-    color: var(--tan-1);
-    font-size: 2.7vmin;
-    border: .6vmin solid var(--tan-2);
+    color: var(--indigo);
+    font-family: 'Caprasimo', cursive;
+    font-size: 6vmin;
     }
+
+.AuthPgLogoBackground {
+    height: 20vmax;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: -100;
+}

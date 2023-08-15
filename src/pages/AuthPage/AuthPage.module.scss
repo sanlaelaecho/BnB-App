@@ -5,6 +5,13 @@
     align-items: center;
     background-color: var(--white);
     border-radius: 2vmin;
+    .buttons {
+      display: flex;
+    }
+    .form-container {
+      display: flex;
+      align-content: space-between;
+    }
   }
   
   .AuthPage h3 {
