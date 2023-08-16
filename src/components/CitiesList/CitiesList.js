@@ -1,5 +1,5 @@
 import styles from './CitiesList.module.scss';
-import MenuListItem from '../CitiesListItem/CitiesListItem';
+import CitiesListItem from '../CitiesListItem/CitiesListItem';
 
 export default function CitiesList({ menuItems, handleAddToOrder }) {
   const cities = menuItems.map(item =>

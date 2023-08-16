@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import * as itemsAPI from '../../utilities/items-api';
 import * as ordersAPI from '../../utilities/orders-api';
-import styles from './NewOrderPage.module.scss';
+import styles from './CitiesPage.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo';
-import MenuList from '../../components/MenuList/MenuList';
+import CitiesList from '../../components/CitiesList/CitiesList';
 import CategoryList from '../../components/CategoryList/CategoryList';
 import OrderDetail from '../../components/OrderDetail/OrderDetail';
 import UserLogOut from '../../components/UserLogOut/UserLogOut';
 
-export default function NewOrderPage({ user, setUser }) {
+export default function CitiesPage({ user, setUser }) {
   const [menuItems, setMenuItems] = useState([]);
   const [activeCat, setActiveCat] = useState('');
   const [cart, setCart] = useState(null);
@@ -18,7 +18,7 @@ export default function NewOrderPage({ user, setUser }) {
 
   useEffect(function() {
     async function getItems() {
-      const items = await itemsAPI.getAll();
+      const items = await itemsAPI.getAllCities();
       categoriesRef.current = items.reduce((cats, item) => {
         const cat = item.category.name;
         return cats.includes(cat) ? cats : [...cats, cat];
@@ -38,9 +38,9 @@ export default function NewOrderPage({ user, setUser }) {
   // the FIRST render only
 
   /*-- Event Handlers --*/
-  async function handleOpenCitiesPage(countryId) {
-    const cities = await itemsAPI.getAllCities(countryId);
-    setMenuItems(cities);
+  async function handleAddToOrder(itemId) {
+    const updatedCart = await ordersAPI.addItemToCart(itemId);
+    setCart(updatedCart);
   }
 
   async function handleChangeQty(itemId, newQty) {
@@ -54,7 +54,7 @@ export default function NewOrderPage({ user, setUser }) {
   }
 
   return (
-    <main className={styles.NewOrderPage}>
+    <main className={styles.CitiesPage}>
       <aside>
         <Logo />
         <CategoryList
@@ -65,9 +65,9 @@ export default function NewOrderPage({ user, setUser }) {
         <Link to="/orders" className="button btn-sm">PREVIOUS ORDERS</Link>
         <UserLogOut user={user} setUser={setUser} />
       </aside>
-      <MenuList
+      <CitiesList
         menuItems={menuItems.filter(item => item.category.name === activeCat)}
-        handleOpenCitiesPage={handleOpenCitiesPage}
+        handleAddToOrder={handleAddToOrder}
       />
       <OrderDetail
         order={cart}

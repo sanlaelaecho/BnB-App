@@ -1,6 +1,6 @@
-import styles from './MenuListItem.module.scss';
+import styles from './CitiesListItem.module.scss';
 
-export default function MenuListItem({ menuItem, handleAddToOrder }) {
+export default function CitiesListItem({ menuItem, handleAddToOrder }) {
   return (
     <div className={styles.MenuListItem}>
       <div className={styles.img + ' ' + 'flex-ctr-ctr'}><img className={styles.img}src={menuItem.img} /></div>
