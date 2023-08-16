@@ -22,16 +22,6 @@ yarn dev
 npm run proxy
 ```
 
-**Build files for production**
-```bash
-yarn build
-```
-### or
-
-```bash
-npm run build
-```
-
 **Deploy for production script**
 ```bash
 npm start

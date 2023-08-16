@@ -15,16 +15,6 @@ app.use(logger('dev'))
 
 app.use(favicon(path.join(__dirname, 'public', 'img', 'logo.png')))
 
-/* Controller Goes Here Remove the test
-app.get('/test', (req, res)=>{
-	res.status(200).json({
-		website: 'My Website',
-		info: 'Not that much'
-	})
-})
-Controller Ends here */
-//LISTENER
-
 // Check if token and create req.user
 app.use(require('./config/checkToken'));
 

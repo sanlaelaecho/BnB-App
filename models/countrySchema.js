@@ -1,6 +1,6 @@
 const Schema = require('mongoose').Schema;
 
-const citySchema = new Schema({
+const countrySchema = new Schema({
     name: { type: String, required: true },
     img: String,
     category: { type: Schema.Types.ObjectId, ref: 'Category' },
