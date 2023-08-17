@@ -38,10 +38,10 @@ export default function NewOrderPage({ user, setUser }) {
   // the FIRST render only
 
   /*-- Event Handlers --*/
-  async function handleOpenCitiesPage(countryId) {
-    const cities = await itemsAPI.getAllCities(countryId);
-    setMenuItems(cities);
-  }
+  // async function handleOpenCitiesPage() {
+  //   const cities = await itemsAPI.getCountryCities();
+  //   setMenuItems(cities);
+  // }
 
   async function handleChangeQty(itemId, newQty) {
     const updatedCart = await ordersAPI.setItemQtyInCart(itemId, newQty);
@@ -67,7 +67,7 @@ export default function NewOrderPage({ user, setUser }) {
       </aside>
       <MenuList
         menuItems={menuItems.filter(item => item.category.name === activeCat)}
-        handleOpenCitiesPage={handleOpenCitiesPage}
+        // handleOpenCitiesPage={handleOpenCitiesPage}
       />
       <OrderDetail
         order={cart}

@@ -15,4 +15,4 @@ const test = new Test();
 test.main();
 /******/ })()
 ;
-//# sourceMappingURL=main.81fa329d61f9ec4e488d97c9b9b05436.js.map
+//# sourceMappingURL=main.js.map

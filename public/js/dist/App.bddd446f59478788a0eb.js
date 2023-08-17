@@ -84,7 +84,7 @@ function CitiesListItem(_ref) {
     handleAddToOrder
   } = _ref;
   return /*#__PURE__*/React.createElement("div", {
-    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].MenuListItem
+    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].CitiesListItem
   }, /*#__PURE__*/React.createElement("div", {
     className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].img + ' ' + 'flex-ctr-ctr'
   }, /*#__PURE__*/React.createElement("img", {
@@ -296,12 +296,13 @@ function MenuList(_ref) {
 /* harmony export */   "default": () => (/* binding */ MenuListItem)
 /* harmony export */ });
 /* harmony import */ var _MenuListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MenuListItem.module.scss */ "./src/components/MenuListItem/MenuListItem.module.scss");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
 
 function MenuListItem(_ref) {
   let {
-    menuItem,
-    handleOpenCitiesPage
+    menuItem
   } = _ref;
   return /*#__PURE__*/React.createElement("div", {
     className: _MenuListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].MenuListItem
@@ -314,10 +315,11 @@ function MenuListItem(_ref) {
     className: _MenuListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].name
   }, menuItem.name), /*#__PURE__*/React.createElement("div", {
     className: _MenuListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].buy
-  }, /*#__PURE__*/React.createElement("span", null, "$", menuItem.price), /*#__PURE__*/React.createElement("button", {
-    className: "btn-sm",
-    onClick: () => handleOpenCitiesPage(menuItem._id)
-  }, "Cities")));
+  }, /*#__PURE__*/React.createElement("span", null, "$", menuItem.price), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    to: "/orders/new/".concat(menuItem._id)
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn-sm"
+  }, "Cities"))));
 }
 
 /***/ }),
@@ -371,7 +373,7 @@ function OrderDetail(_ref) {
     className: _OrderDetail_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].right
   }, "$", order.orderTotal.toFixed(2)))) : /*#__PURE__*/React.createElement("div", {
     className: _OrderDetail_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].hungry
-  }, "Hungry?")));
+  }, "Going somewhere?")));
 }
 
 /***/ }),
@@ -654,6 +656,12 @@ function App() {
       setUser: setUser
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+    path: "/orders/new/:countryId",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CitiesPage_CitiesPage__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      user: user,
+      setUser: setUser
+    })
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
     path: "/orders",
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_OrderHistoryPage_OrderHistoryPage__WEBPACK_IMPORTED_MODULE_5__["default"], {
       user: user,
@@ -754,23 +762,19 @@ function CitiesPage(_ref) {
   const [cart, setCart] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const categoriesRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
+  const params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useParams)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    function getItems() {
-      return _getItems.apply(this, arguments);
+    function getCities() {
+      return _getCities.apply(this, arguments);
     }
-    function _getItems() {
-      _getItems = _asyncToGenerator(function* () {
-        const items = yield _utilities_items_api__WEBPACK_IMPORTED_MODULE_8__.getAllCities();
-        categoriesRef.current = items.reduce((cats, item) => {
-          const cat = item.category.name;
-          return cats.includes(cat) ? cats : [...cats, cat];
-        }, []);
-        setMenuItems(items);
-        setActiveCat(categoriesRef.current[0]);
+    function _getCities() {
+      _getCities = _asyncToGenerator(function* () {
+        const cities = yield _utilities_items_api__WEBPACK_IMPORTED_MODULE_8__.getCountryCities(params.countryId);
+        setMenuItems(cities);
       });
-      return _getItems.apply(this, arguments);
+      return _getCities.apply(this, arguments);
     }
-    getItems();
+    getCities();
     function getCart() {
       return _getCart.apply(this, arguments);
     }
@@ -783,9 +787,6 @@ function CitiesPage(_ref) {
     }
     getCart();
   }, []);
-  // Providing an empty 'dependency array'
-  // results in the effect running after
-  // the FIRST render only
 
   /*-- Event Handlers --*/
   function handleAddToOrder(_x) {
@@ -825,13 +826,16 @@ function CitiesPage(_ref) {
     cart: setCart,
     setActiveCat: setActiveCat
   }), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
+    to: "/orders/new",
+    className: "button btn-sm"
+  }, "BACK TO COUNTRIES"), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
     to: "/orders",
     className: "button btn-sm"
   }, "PREVIOUS ORDERS"), /*#__PURE__*/React.createElement(_components_UserLogOut_UserLogOut__WEBPACK_IMPORTED_MODULE_6__["default"], {
     user: user,
     setUser: setUser
   })), /*#__PURE__*/React.createElement(_components_CitiesList_CitiesList__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    menuItems: menuItems.filter(item => item.category.name === activeCat),
+    menuItems: menuItems,
     handleAddToOrder: handleAddToOrder
   }), /*#__PURE__*/React.createElement(_components_OrderDetail_OrderDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {
     order: cart,
@@ -920,17 +924,11 @@ function NewOrderPage(_ref) {
   // the FIRST render only
 
   /*-- Event Handlers --*/
-  function handleOpenCitiesPage(_x) {
-    return _handleOpenCitiesPage.apply(this, arguments);
-  }
-  function _handleOpenCitiesPage() {
-    _handleOpenCitiesPage = _asyncToGenerator(function* (countryId) {
-      const cities = yield _utilities_items_api__WEBPACK_IMPORTED_MODULE_8__.getAllCities(countryId);
-      setMenuItems(cities);
-    });
-    return _handleOpenCitiesPage.apply(this, arguments);
-  }
-  function handleChangeQty(_x2, _x3) {
+  // async function handleOpenCitiesPage() {
+  //   const cities = await itemsAPI.getCountryCities();
+  //   setMenuItems(cities);
+  // }
+  function handleChangeQty(_x, _x2) {
     return _handleChangeQty.apply(this, arguments);
   }
   function _handleChangeQty() {
@@ -963,8 +961,8 @@ function NewOrderPage(_ref) {
     user: user,
     setUser: setUser
   })), /*#__PURE__*/React.createElement(_components_MenuList_MenuList__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    menuItems: menuItems.filter(item => item.category.name === activeCat),
-    handleOpenCitiesPage: handleOpenCitiesPage
+    menuItems: menuItems.filter(item => item.category.name === activeCat)
+    // handleOpenCitiesPage={handleOpenCitiesPage}
   }), /*#__PURE__*/React.createElement(_components_OrderDetail_OrderDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {
     order: cart,
     handleChangeQty: handleChangeQty,
@@ -1065,17 +1063,20 @@ function OrderHistoryPage(_ref) {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getAll: () => (/* binding */ getAll),
-/* harmony export */   getAllCities: () => (/* binding */ getAllCities)
+/* harmony export */   getCountryCities: () => (/* binding */ getCountryCities)
 /* harmony export */ });
-/* unused harmony export getById */
+/* unused harmony exports getAllCities, getById */
 /* harmony import */ var _send_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./send-request */ "./src/utilities/send-request.js");
 
 const BASE_URL = '/api/items';
 function getAll() {
   return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])(BASE_URL);
 }
-function getAllCities(countryId) {
-  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/").concat(countryId));
+function getAllCities() {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/cities"));
+}
+function getCountryCities(countryId) {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/country/").concat(countryId));
 }
 function getById(id) {
   return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/").concat(id));
@@ -3103,4 +3104,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.05aa3870cf741c25c31af48a9edd40e4.js.map
+//# sourceMappingURL=App.js.map

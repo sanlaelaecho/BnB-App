@@ -2,40 +2,34 @@ import { useState, useEffect, useRef } from 'react';
 import * as itemsAPI from '../../utilities/items-api';
 import * as ordersAPI from '../../utilities/orders-api';
 import styles from './CitiesPage.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo';
 import CitiesList from '../../components/CitiesList/CitiesList';
 import CategoryList from '../../components/CategoryList/CategoryList';
 import OrderDetail from '../../components/OrderDetail/OrderDetail';
 import UserLogOut from '../../components/UserLogOut/UserLogOut';
 
+
 export default function CitiesPage({ user, setUser }) {
   const [menuItems, setMenuItems] = useState([]);
-  const [activeCat, setActiveCat] = useState('');
+  const [activeCat, setActiveCat] = useState('')
   const [cart, setCart] = useState(null);
   const categoriesRef = useRef([]);
   const navigate = useNavigate();
+  const params = useParams();
 
   useEffect(function() {
-    async function getItems() {
-      const items = await itemsAPI.getAllCities();
-      categoriesRef.current = items.reduce((cats, item) => {
-        const cat = item.category.name;
-        return cats.includes(cat) ? cats : [...cats, cat];
-      }, []);
-      setMenuItems(items);
-      setActiveCat(categoriesRef.current[0]);
+     async function getCities() {
+      const cities = await itemsAPI.getCountryCities(params.countryId);
+      setMenuItems(cities);
     }
-    getItems();
+    getCities()
     async function getCart() {
       const cart = await ordersAPI.getCart();
       setCart(cart);
     }
     getCart();
   }, []);
-  // Providing an empty 'dependency array'
-  // results in the effect running after
-  // the FIRST render only
 
   /*-- Event Handlers --*/
   async function handleAddToOrder(itemId) {
@@ -62,11 +56,12 @@ export default function CitiesPage({ user, setUser }) {
           cart={setCart}
           setActiveCat={setActiveCat}
         />
+        <Link to="/orders/new" className="button btn-sm">BACK TO COUNTRIES</Link>
         <Link to="/orders" className="button btn-sm">PREVIOUS ORDERS</Link>
         <UserLogOut user={user} setUser={setUser} />
       </aside>
       <CitiesList
-        menuItems={menuItems.filter(item => item.category.name === activeCat)}
+        menuItems={menuItems}
         handleAddToOrder={handleAddToOrder}
       />
       <OrderDetail

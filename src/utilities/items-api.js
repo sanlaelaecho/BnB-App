@@ -6,8 +6,12 @@ export function getAll() {
   return sendRequest(BASE_URL);
 }
 
-export function getAllCities(countryId) {
-  return sendRequest(`${BASE_URL}/${countryId}`);
+export function getAllCities() {
+  return sendRequest(`${BASE_URL}/cities`);
+}
+
+export function getCountryCities(countryId) {
+  return sendRequest(`${BASE_URL}/country/${countryId}`);
 }
 
 export function getById(id) {
