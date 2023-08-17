@@ -81,7 +81,7 @@ const Item = require('../models/item');
     {name: 'Chicago', img: 'https://tourscanner.com/blog/wp-content/uploads/2022/08/things-to-do-in-Downtown-Chicago.jpg', country: countries[10], airport: 'ORD', price: 795.00},
     {name: 'Toronto', img: 'https://a.cdn-hotels.com/gdcs/production23/d1075/4afaf5b7-161e-4ca5-8aff-c6f882d2ee64.jpg?impolicy=fcrop&w=800&h=533&q=medium', country: countries[11], airport: 'YYZ', price: 795.00},
     {name: 'Vancouver', img: 'https://tricycle.org/wp-content/uploads/2019/04/buddhism-in-vancouver-1024x683.jpg', country: countries[11], airport: 'YVR', price: 795.00},
-    {name: 'Cancun', img: 'https://www.worldatlas.com/upload/94/49/83/cancun-mexico-jdross75.jpg', country: countries[12], airport: 'OXF', price: 795.00},
+    {name: 'Cancun', img: 'https://www.worldatlas.com/upload/94/49/83/cancun-mexico-jdross75.jpg', country: countries[12], airport: 'CUN', price: 795.00},
     {name: 'Mexico City', img: 'https://www.fodors.com/wp-content/uploads/2021/05/UltimateMexicoCity__HERO_shutterstock_1058054480.jpg', country: countries[12], airport: 'MEX', price: 795.00},
     {name: 'Nuuk', img: 'https://images.immediate.co.uk/production/volatile/sites/7/2019/08/G1BBW6-2edf7c8.jpg?quality=90&resize=980,654', country: countries[13], airport: 'GOH', price: 795.00},
     {name: 'San Jose', img: 'https://littlewanderbook.com/wp-content/uploads/2022/12/Roadtrip-Costa-Rica-14-van-25-scaled.jpg', country: countries[14], airport: 'SJC', price: 795.00},
