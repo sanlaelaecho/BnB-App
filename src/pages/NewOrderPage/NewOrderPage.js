@@ -33,15 +33,6 @@ export default function NewOrderPage({ user, setUser }) {
     }
     getCart();
   }, []);
-  // Providing an empty 'dependency array'
-  // results in the effect running after
-  // the FIRST render only
-
-  /*-- Event Handlers --*/
-  // async function handleOpenCitiesPage() {
-  //   const cities = await itemsAPI.getCountryCities();
-  //   setMenuItems(cities);
-  // }
 
   async function handleChangeQty(itemId, newQty) {
     const updatedCart = await ordersAPI.setItemQtyInCart(itemId, newQty);
@@ -67,7 +58,6 @@ export default function NewOrderPage({ user, setUser }) {
       </aside>
       <MenuList
         menuItems={menuItems.filter(item => item.category.name === activeCat)}
-        // handleOpenCitiesPage={handleOpenCitiesPage}
       />
       <OrderDetail
         order={cart}

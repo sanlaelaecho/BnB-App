@@ -7,7 +7,7 @@ module.exports = {
 	indexCities,
 	indexCitiesOfCountry,
 	show,
-  getRoundFlights
+  showRoundFlights
 };
 
 async function index(req, res) {
@@ -54,20 +54,30 @@ async function show(req, res) {
 	}
 }
 
-async function getRoundFlights(
-	departureAirport,
-	arrivalAirport,
-	noOfAdults,
-	noOfChildren,
-	noOfInfants,
-	cabinClass
-) {
+async function updatePrice(req, res) {
+  try{
+    const city = await Item.findByIdAndUpdate({_id: req.params.id}, req.body.price, {new: true})
+    res.status(200).json(city)
+  } catch(e) {
+    res.status(400).json({ msg: e.message })
+  }
+}
+
+async function showRoundFlights(req, res) {
+  const {departureAirport, arrivalAirport, departureDate, arrivalDate, cabinClass} = req.body
 	try {
 		const response = await fetch(
-			`https://api.flightapi.io/roundtrip/${process.env.API_KEY}/${departureAirport}/${arrivalAirport}/${departureDate}/${noOfAdults}/${noOfChildren}/${noOfInfants}/${cabinClass}/USD`
+			`https://api.flightapi.io/roundtrip/${process.env.API_KEY}/${departureAirport}/${arrivalAirport}/${departureDate}/${arrivalDate}/1/0/0/${cabinClass}/USD`
 		);
 		const data = await response.json();
-		return data;
+    const flightData = data.legs.map((leg) => {
+      return {
+        departureTime: leg.departureTime,
+        arrivalTime: leg.arrivalTime,
+        airlineCode: Array.isArray(leg.airlineCodes) && leg.airlineCodes.length ? leg.airlineCodes.join(',') : leg.airlineCodes
+      }
+    })
+    res.json(flightData)
 	} catch (e) {
 		res.status(400).json({ msg: e.message });
 	}

@@ -49,16 +49,26 @@ function CategoryList(_ref) {
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
+
 function CitiesList(_ref) {
   let {
     menuItems,
     handleAddToOrder
   } = _ref;
+  //const [disabledBtns, setDisabledBtns] = useState(false)
+  //const [departure, setDeparture] = useState(null)
+  //const [arrival, setArrival] = useState(null)
+
   const cities = menuItems.map(item => /*#__PURE__*/React.createElement(_CitiesListItem_CitiesListItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
     key: item._id,
     handleAddToOrder: handleAddToOrder,
     menuItem: item
+    //currentDeparture={departure}
+    //setDeparture={setDeparture}
+    //currentArrival={arrival}
+    //setArrival={setArrival}
   }));
+
   return /*#__PURE__*/React.createElement("main", {
     className: _CitiesList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].CitiesList
   }, cities);
@@ -75,29 +85,134 @@ function CitiesList(_ref) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ CitiesListItem)
 /* harmony export */ });
-/* harmony import */ var _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CitiesListItem.module.scss */ "./src/components/CitiesListItem/CitiesListItem.module.scss");
-/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CitiesListItem.module.scss */ "./src/components/CitiesListItem/CitiesListItem.module.scss");
+
 
 function CitiesListItem(_ref) {
   let {
     menuItem,
-    handleAddToOrder
+    handleAddToOrder,
+    handleDepartureAirport,
+    handleArrivalAirport
   } = _ref;
-  return /*#__PURE__*/React.createElement("div", {
-    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].CitiesListItem
-  }, /*#__PURE__*/React.createElement("div", {
-    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].img + ' ' + 'flex-ctr-ctr'
-  }, /*#__PURE__*/React.createElement("img", {
-    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].img,
+  const [isDepartureBtnDisabled, setIsDepartureBtnDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [isArrivalBtnDisabled, setIsArrivalBtnDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const handleDepartureBtnClick = () => {
+    handleAddToOrder(menuItem._id);
+    setIsDepartureBtnDisabled(true);
+    //setDeparture(menuItem.airport)
+    //showdeparture times
+  };
+
+  const handleArrivalBtnClick = () => {
+    handleAddToOrder(menuItem._id);
+    setIsArrivalBtnDisabled(true);
+  };
+
+  /*const [disabledBtns, setDisabledBtns] = useState(false)
+   const handleDepartureBtnsClick = () => {
+    handleAddToOrder(menuItem._id)
+    setDisabledBtns(true)
+  }*/
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].CitiesListItem
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].img + ' ' + 'flex-ctr-ctr'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].img,
     src: menuItem.img
-  })), /*#__PURE__*/React.createElement("div", {
-    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].name
-  }, menuItem.name), /*#__PURE__*/React.createElement("div", {
-    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].buy
-  }, /*#__PURE__*/React.createElement("span", null, "$", menuItem.price.toFixed(2)), /*#__PURE__*/React.createElement("button", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].name
+  }, menuItem.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].buy
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "$", menuItem.price.toFixed(2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: "btn-sm",
-    onClick: () => handleAddToOrder(menuItem._id)
-  }, "ADD")));
+    onClick: handleDepartureBtnClick,
+    disabled: isDepartureBtnDisabled
+  }, "DEPARTURE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "btn-sm",
+    onClick: handleArrivalBtnClick,
+    disabled: isArrivalBtnDisabled
+  }, "ARRIVAL")));
+}
+
+// const handleDepartureBtnClick = async(departureAirport,
+//   arrivalAirport,
+//   departureDate,
+//   arrivalDate,
+//   cabinClass) => {
+//   handleAddToOrder(menuItem._id)
+//   setIsDepartureBtnDisabled(true)
+//   try{
+//     const departureData = await itemsAPI.getRoundFlights(departureAirport,
+//       arrivalAirport,
+//       departureDate,
+//       arrivalDate,
+//       cabinClass)
+//     setDepartures(departureData)
+//   } catch (e) {
+//     console.error(e)
+//   }
+// }
+
+/***/ }),
+
+/***/ "./src/components/DateRangePicker/DateRangePicker.js":
+/*!***********************************************************!*\
+  !*** ./src/components/DateRangePicker/DateRangePicker.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DateRangePicker)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-datepicker */ "./node_modules/react-datepicker/dist/react-datepicker.min.js");
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_datepicker__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function DateRangePicker(_ref) {
+  let {
+    onChange
+  } = _ref;
+  const [departureDate, setDepartureDate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [arrivalDate, setArrivalDate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const handleDatesChange = _ref2 => {
+    let {
+      departureDate,
+      arrivalDate
+    } = _ref2;
+    setDepartureDate(departureDate);
+    setArrivalDate(arrivalDate);
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "date-picker-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react_datepicker__WEBPACK_IMPORTED_MODULE_1___default()), {
+    selected: departureDate,
+    onChange: date => handleDatesChange({
+      departureDate: date,
+      arrivalDate
+    }),
+    selectsDeparture: true,
+    departureDate: departureDate,
+    arrivalDate: arrivalDate,
+    placeholderText: "Select Departure Date"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react_datepicker__WEBPACK_IMPORTED_MODULE_1___default()), {
+    selected: arrivalDate,
+    onChange: date => handleDatesChange({
+      departureDate,
+      arrivalDate: date
+    }),
+    selectsArrival: true,
+    departureDate: departureDate,
+    arrivalDate: arrivalDate,
+    placeholderText: "Select Arrival Date",
+    minDate: departureDate
+  }));
 }
 
 /***/ }),
@@ -707,7 +822,7 @@ function AuthPage(_ref) {
   const [showLogin, setShowLogin] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   return /*#__PURE__*/React.createElement("main", {
     className: _AuthPage_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].AuthPage
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_components_Logo_Logo__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/React.createElement("h3", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_components_Logo_Logo__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h3", {
     onClick: () => setShowLogin(!showLogin)
   }, showLogin ? 'SIGN UP' : 'LOG IN')), showLogin ? /*#__PURE__*/React.createElement(_components_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
     setUser: setUser
@@ -736,10 +851,9 @@ function AuthPage(_ref) {
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _components_Logo_Logo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Logo/Logo */ "./src/components/Logo/Logo.js");
 /* harmony import */ var _components_CitiesList_CitiesList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/CitiesList/CitiesList */ "./src/components/CitiesList/CitiesList.js");
-/* harmony import */ var _components_CategoryList_CategoryList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/CategoryList/CategoryList */ "./src/components/CategoryList/CategoryList.js");
-/* harmony import */ var _components_OrderDetail_OrderDetail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/OrderDetail/OrderDetail */ "./src/components/OrderDetail/OrderDetail.js");
-/* harmony import */ var _components_UserLogOut_UserLogOut__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/UserLogOut/UserLogOut */ "./src/components/UserLogOut/UserLogOut.js");
-/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _components_OrderDetail_OrderDetail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/OrderDetail/OrderDetail */ "./src/components/OrderDetail/OrderDetail.js");
+/* harmony import */ var _components_UserLogOut_UserLogOut__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/UserLogOut/UserLogOut */ "./src/components/UserLogOut/UserLogOut.js");
+/* harmony import */ var _components_DateRangePicker_DateRangePicker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/DateRangePicker/DateRangePicker */ "./src/components/DateRangePicker/DateRangePicker.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
@@ -757,10 +871,14 @@ function CitiesPage(_ref) {
     user,
     setUser
   } = _ref;
+  const [selectedDates, setSelectedDates] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    departureDate: null,
+    arrivalDate: null
+  });
   const [menuItems, setMenuItems] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [activeCat, setActiveCat] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [departureAirport, setDepartureAirport] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [arrivalAirport, setArrivalAirport] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [cart, setCart] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const categoriesRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
   const params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useParams)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -789,7 +907,56 @@ function CitiesPage(_ref) {
   }, []);
 
   /*-- Event Handlers --*/
-  function handleAddToOrder(_x) {
+  function handleDatesChange(_x) {
+    return _handleDatesChange.apply(this, arguments);
+  }
+  function _handleDatesChange() {
+    _handleDatesChange = _asyncToGenerator(function (_ref2) {
+      let {
+        departureDate,
+        arrivalDate
+      } = _ref2;
+      return function* () {
+        /*     const dYear = departureDate.getFullYear()
+        const dMonth = departureDate.getMonth()
+        const dDay = departureDate.getDate()
+        let departureDateFormat = `${dYear}-${dMonth}-${dDay}`
+        const aYear = arrivalDate.getFullYear()
+        const aMonth = arrivalDate.getMonth()
+        const aDay = arrivalDate.getDate()
+        let arrivalDateFormat = `${aYear}-${aMonth}-${aDay}` */
+        setSelectedDates({
+          departureDate,
+          arrivalDate
+        });
+        console.log(selectedDates);
+      }();
+    });
+    return _handleDatesChange.apply(this, arguments);
+  }
+  function handleDepartureAirport(_x2) {
+    return _handleDepartureAirport.apply(this, arguments);
+  }
+  function _handleDepartureAirport() {
+    _handleDepartureAirport = _asyncToGenerator(function* (itemDepartAirport) {
+      setDepartureAirport(itemDepartAirport);
+    });
+    return _handleDepartureAirport.apply(this, arguments);
+  }
+  function handleArrivalAirport(_x3) {
+    return _handleArrivalAirport.apply(this, arguments);
+  }
+  function _handleArrivalAirport() {
+    _handleArrivalAirport = _asyncToGenerator(function* (itemAirport) {
+      setArrivalAirport(itemAirport);
+      /* const roundFlights = await itemsAPI.getRoundFlights(departureAirport,
+      arrivalAirport,
+      departureDate,
+      arrivalDate) */
+    });
+    return _handleArrivalAirport.apply(this, arguments);
+  }
+  function handleAddToOrder(_x4) {
     return _handleAddToOrder.apply(this, arguments);
   }
   function _handleAddToOrder() {
@@ -799,7 +966,7 @@ function CitiesPage(_ref) {
     });
     return _handleAddToOrder.apply(this, arguments);
   }
-  function handleChangeQty(_x2, _x3) {
+  function handleChangeQty(_x5, _x6) {
     return _handleChangeQty.apply(this, arguments);
   }
   function _handleChangeQty() {
@@ -819,25 +986,26 @@ function CitiesPage(_ref) {
     });
     return _handleCheckout.apply(this, arguments);
   }
-  return /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", {
     className: _CitiesPage_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].CitiesPage
-  }, /*#__PURE__*/React.createElement("aside", null, /*#__PURE__*/React.createElement(_components_Logo_Logo__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/React.createElement(_components_CategoryList_CategoryList__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    categories: categoriesRef.current,
-    cart: setCart,
-    setActiveCat: setActiveCat
-  }), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("aside", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Logo_Logo__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_DateRangePicker_DateRangePicker__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    selectedDates: [selectedDates],
+    handleDatesChange: handleDatesChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
     to: "/orders/new",
     className: "button btn-sm"
-  }, "BACK TO COUNTRIES"), /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
+  }, "BACK TO COUNTRIES"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
     to: "/orders",
     className: "button btn-sm"
-  }, "PREVIOUS ORDERS"), /*#__PURE__*/React.createElement(_components_UserLogOut_UserLogOut__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, "PREVIOUS ORDERS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_UserLogOut_UserLogOut__WEBPACK_IMPORTED_MODULE_5__["default"], {
     user: user,
     setUser: setUser
-  })), /*#__PURE__*/React.createElement(_components_CitiesList_CitiesList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CitiesList_CitiesList__WEBPACK_IMPORTED_MODULE_3__["default"], {
     menuItems: menuItems,
-    handleAddToOrder: handleAddToOrder
-  }), /*#__PURE__*/React.createElement(_components_OrderDetail_OrderDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    handleAddToOrder: handleAddToOrder,
+    handleDepartureAirport: handleDepartureAirport,
+    handleArrivalAirport: handleArrivalAirport
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_OrderDetail_OrderDetail__WEBPACK_IMPORTED_MODULE_4__["default"], {
     order: cart,
     handleChangeQty: handleChangeQty,
     handleCheckout: handleCheckout
@@ -919,15 +1087,6 @@ function NewOrderPage(_ref) {
     }
     getCart();
   }, []);
-  // Providing an empty 'dependency array'
-  // results in the effect running after
-  // the FIRST render only
-
-  /*-- Event Handlers --*/
-  // async function handleOpenCitiesPage() {
-  //   const cities = await itemsAPI.getCountryCities();
-  //   setMenuItems(cities);
-  // }
   function handleChangeQty(_x, _x2) {
     return _handleChangeQty.apply(this, arguments);
   }
@@ -962,7 +1121,6 @@ function NewOrderPage(_ref) {
     setUser: setUser
   })), /*#__PURE__*/React.createElement(_components_MenuList_MenuList__WEBPACK_IMPORTED_MODULE_3__["default"], {
     menuItems: menuItems.filter(item => item.category.name === activeCat)
-    // handleOpenCitiesPage={handleOpenCitiesPage}
   }), /*#__PURE__*/React.createElement(_components_OrderDetail_OrderDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {
     order: cart,
     handleChangeQty: handleChangeQty,
@@ -1065,7 +1223,7 @@ function OrderHistoryPage(_ref) {
 /* harmony export */   getAll: () => (/* binding */ getAll),
 /* harmony export */   getCountryCities: () => (/* binding */ getCountryCities)
 /* harmony export */ });
-/* unused harmony exports getAllCities, getById */
+/* unused harmony exports getAllCities, getRoundFlights, getById */
 /* harmony import */ var _send_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./send-request */ "./src/utilities/send-request.js");
 
 const BASE_URL = '/api/items';
@@ -1077,6 +1235,15 @@ function getAllCities() {
 }
 function getCountryCities(countryId) {
   return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/country/").concat(countryId));
+}
+function getRoundFlights(departureAirport, arrivalAirport, departureDate, arrivalDate, cabinClass) {
+  return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/flights"), 'POST', {
+    departureAirport,
+    arrivalAirport,
+    departureDate,
+    arrivalDate,
+    cabinClass
+  });
 }
 function getById(id) {
   return (0,_send_request__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(BASE_URL, "/").concat(id));
@@ -1523,7 +1690,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.EDeinQzfS2N2rVW_Z1GP {
-  height: 3vmax;
+  height: 0.00001vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1540,7 +1707,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.EDeinQzfS2N2rVW_Z1GP {
   flex-direction: column;
   align-items: center;
   z-index: -100;
-}`, "",{"version":3,"sources":["webpack://./src/components/Logo/Logo.module.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,YAAA;EACA,mBAAA;EACA,oBAAA;EACA,iCAAA;EACA,gBAAA;AACJ;;AAEA;EACI,cAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,aAAA;AACJ","sourcesContent":[".Logo {\n    height: 3vmax;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    z-index: 100;\n    align-items: center;\n    color: var(--indigo);\n    font-family: 'Caprasimo', cursive;\n    font-size: 6vmin;\n    }\n\n.AuthPgLogoBackground {\n    height: 20vmax;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    z-index: -100;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/components/Logo/Logo.module.scss"],"names":[],"mappings":"AAAA;EACI,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,YAAA;EACA,mBAAA;EACA,oBAAA;EACA,iCAAA;EACA,gBAAA;AACJ;;AAEA;EACI,cAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,aAAA;AACJ","sourcesContent":[".Logo {\n    height: 0.00001vh;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    z-index: 100;\n    align-items: center;\n    color: var(--indigo);\n    font-family: 'Caprasimo', cursive;\n    font-size: 6vmin;\n    }\n\n.AuthPgLogoBackground {\n    height: 20vmax;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    z-index: -100;\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"Logo": `EDeinQzfS2N2rVW_Z1GP`,
@@ -2953,7 +3120,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -3025,6 +3192,17 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
@@ -3099,7 +3277,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_css-loader_dist_runtime_api_js-node_modules_css-loader_dist_runtime_sour-354ecd"], () => (__webpack_require__("./src/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_css-loader_dist_runtime_api_js-node_modules_css-loader_dist_runtime_sour-be53ca"], () => (__webpack_require__("./src/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
