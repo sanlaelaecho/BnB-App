@@ -49,11 +49,12 @@ function CategoryList(_ref) {
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
-
 function CitiesList(_ref) {
   let {
     menuItems,
-    handleAddToOrder
+    handleAddToOrder,
+    handleDepartureAirport,
+    handleArrivalAirport
   } = _ref;
   //const [disabledBtns, setDisabledBtns] = useState(false)
   //const [departure, setDeparture] = useState(null)
@@ -71,7 +72,10 @@ function CitiesList(_ref) {
 
   return /*#__PURE__*/React.createElement("main", {
     className: _CitiesList_module_scss__WEBPACK_IMPORTED_MODULE_0__["default"].CitiesList
-  }, cities);
+  }, /*#__PURE__*/React.createElement("section", null), /*#__PURE__*/React.createElement("button", {
+    className: "btn-sm",
+    onClick: () => handleAddToSelected(item._id)
+  }, "ADD"), cities);
 }
 
 /***/ }),
@@ -90,6 +94,7 @@ function CitiesList(_ref) {
 /* harmony import */ var _CitiesListItem_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CitiesListItem.module.scss */ "./src/components/CitiesListItem/CitiesListItem.module.scss");
 
 
+
 function CitiesListItem(_ref) {
   let {
     menuItem,
@@ -97,6 +102,7 @@ function CitiesListItem(_ref) {
     handleDepartureAirport,
     handleArrivalAirport
   } = _ref;
+  //const []
   const [isDepartureBtnDisabled, setIsDepartureBtnDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [isArrivalBtnDisabled, setIsArrivalBtnDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const handleDepartureBtnClick = () => {
@@ -177,7 +183,7 @@ function CitiesListItem(_ref) {
 
 function DateRangePicker(_ref) {
   let {
-    onChange
+    onDatesChange
   } = _ref;
   const [departureDate, setDepartureDate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const [arrivalDate, setArrivalDate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
@@ -193,7 +199,7 @@ function DateRangePicker(_ref) {
     className: "date-picker-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react_datepicker__WEBPACK_IMPORTED_MODULE_1___default()), {
     selected: departureDate,
-    onChange: date => handleDatesChange({
+    onDatesChange: date => handleDatesChange({
       departureDate: date,
       arrivalDate
     }),
@@ -203,7 +209,7 @@ function DateRangePicker(_ref) {
     placeholderText: "Select Departure Date"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react_datepicker__WEBPACK_IMPORTED_MODULE_1___default()), {
     selected: arrivalDate,
-    onChange: date => handleDatesChange({
+    onDatesChange: date => handleDatesChange({
       departureDate,
       arrivalDate: date
     }),
@@ -990,7 +996,7 @@ function CitiesPage(_ref) {
     className: _CitiesPage_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].CitiesPage
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("aside", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Logo_Logo__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_DateRangePicker_DateRangePicker__WEBPACK_IMPORTED_MODULE_6__["default"], {
     selectedDates: [selectedDates],
-    handleDatesChange: handleDatesChange
+    onDatesChange: handleDatesChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
     to: "/orders/new",
     className: "button btn-sm"

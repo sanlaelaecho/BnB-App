@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import DatePicker from "react-datepicker"
 
 
-export default function DateRangePicker({ onChange }) {
+export default function DateRangePicker({ onDatesChange }) {
     const [departureDate, setDepartureDate] = useState(null)
     const [arrivalDate, setArrivalDate] = useState(null)
     
@@ -15,7 +15,7 @@ export default function DateRangePicker({ onChange }) {
         <div className="date-picker-container">
             <DatePicker
                 selected={departureDate}
-                onChange={(date) => handleDatesChange({ departureDate: date, arrivalDate })}
+                onDatesChange={(date) => handleDatesChange({ departureDate: date, arrivalDate })}
                 selectsDeparture
                 departureDate={departureDate}
                 arrivalDate={arrivalDate}
@@ -23,7 +23,7 @@ export default function DateRangePicker({ onChange }) {
             />
             <DatePicker
                 selected={arrivalDate}
-                onChange={(date) => handleDatesChange({ departureDate, arrivalDate: date })}
+                onDatesChange={(date) => handleDatesChange({ departureDate, arrivalDate: date })}
                 selectsArrival
                 departureDate={departureDate}
                 arrivalDate={arrivalDate}

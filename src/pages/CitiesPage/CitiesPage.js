@@ -79,7 +79,7 @@ export default function CitiesPage({ user, setUser }) {
         <Logo />
         <DateRangePicker
           selectedDates={[selectedDates]}
-          handleDatesChange={handleDatesChange}
+          onDatesChange={handleDatesChange}
         />
         <Link to="/orders/new" className="button btn-sm">BACK TO COUNTRIES</Link>
         <Link to="/orders" className="button btn-sm">PREVIOUS ORDERS</Link>
